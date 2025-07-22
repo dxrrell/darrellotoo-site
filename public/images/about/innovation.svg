@@ -1,0 +1,14 @@
+<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad6" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7B4AE3;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#9B8ECF;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#grad6)"/>
+  <polygon points="400,150 500,250 450,350 350,350 300,250" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+  <polygon points="400,200 450,250 420,300 380,300 360,250" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+  <polygon points="400,220 420,250 410,270 390,270 385,250" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+  <text x="400" y="320" font-family="Arial, sans-serif" font-size="24" fill="white" text-anchor="middle">Innovation & Research</text>
+  <text x="400" y="350" font-family="Arial, sans-serif" font-size="16" fill="rgba(255,255,255,0.8)" text-anchor="middle">Placeholder Image</text>
+</svg> 

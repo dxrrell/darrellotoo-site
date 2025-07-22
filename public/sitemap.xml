@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <!-- Main Page -->
+  <url>
+    <loc>https://darrellotoo.com/</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- About Section -->
+  <url>
+    <loc>https://darrellotoo.com/#about</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Portfolio Section -->
+  <url>
+    <loc>https://darrellotoo.com/#portfolio</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Services Section -->
+  <url>
+    <loc>https://darrellotoo.com/#services</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Contact Section -->
+  <url>
+    <loc>https://darrellotoo.com/#contact</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Service-specific URLs (for better SEO targeting) -->
+  
+  <!-- Custom PC Building -->
+  <url>
+    <loc>https://darrellotoo.com/#services-custom-pc-building</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Drone Building -->
+  <url>
+    <loc>https://darrellotoo.com/#services-drone-building</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Hardware Repairs -->
+  <url>
+    <loc>https://darrellotoo.com/#services-hardware-repairs</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- UI/UX Design -->
+  <url>
+    <loc>https://darrellotoo.com/#services-ui-ux-design</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Mechanical Design -->
+  <url>
+    <loc>https://darrellotoo.com/#services-mechanical-design</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Public Speaking -->
+  <url>
+    <loc>https://darrellotoo.com/#services-public-speaking</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Consulting -->
+  <url>
+    <loc>https://darrellotoo.com/#services-consulting</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Tutoring -->
+  <url>
+    <loc>https://darrellotoo.com/#services-tutoring</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Career Coaching -->
+  <url>
+    <loc>https://darrellotoo.com/#services-career-coaching</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Training Workshops -->
+  <url>
+    <loc>https://darrellotoo.com/#services-training-workshops</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Technical Writing -->
+  <url>
+    <loc>https://darrellotoo.com/#services-technical-writing</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Expertise-specific URLs -->
+  
+  <!-- Mechanical Engineering -->
+  <url>
+    <loc>https://darrellotoo.com/#expertise-mechanical-engineering</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Innovation Research -->
+  <url>
+    <loc>https://darrellotoo.com/#expertise-innovation-research</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Leadership Mentorship -->
+  <url>
+    <loc>https://darrellotoo.com/#expertise-leadership-mentorship</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Machine Learning -->
+  <url>
+    <loc>https://darrellotoo.com/#expertise-machine-learning</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Public Speaking -->
+  <url>
+    <loc>https://darrellotoo.com/#expertise-public-speaking</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Name-specific URLs for better searchability -->
+  
+  <!-- Emmanuel Darrell Otoo -->
+  <url>
+    <loc>https://darrellotoo.com/#emmanuel-darrell-otoo</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Emmanuel Otoo -->
+  <url>
+    <loc>https://darrellotoo.com/#emmanuel-otoo</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Emmanuel D Otoo -->
+  <url>
+    <loc>https://darrellotoo.com/#emmanuel-d-otoo</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Darrell Otoo -->
+  <url>
+    <loc>https://darrellotoo.com/#darrell-otoo</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- E. Darrell Otoo -->
+  <url>
+    <loc>https://darrellotoo.com/#e-darrell-otoo</loc>
+    <lastmod>2024-12-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+</urlset> 

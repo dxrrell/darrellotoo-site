@@ -1,21 +1,31 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0F0A1F;
+  --foreground: #E8E6F3;
+  --primary-purple: #2D1B69;
+  --accent-purple: #9B8ECF;
+  --bright-purple: #7B4AE3;
+  --dark-purple: #0F0A1F;
+  --light-purple: #E8E6F3;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary-purple);
+  --color-accent: var(--accent-purple);
+  --color-bright: var(--bright-purple);
+  --color-dark: var(--dark-purple);
+  --color-light: var(--light-purple);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0F0A1F;
+    --foreground: #E8E6F3;
   }
 }
 
@@ -23,4 +33,46 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  width: 100vw;
 }
+
+/* Add text gradient utilities */
+.text-gradient {
+  background: linear-gradient(to right, #7B4AE3, #9B8ECF);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gradient-reverse {
+  background: linear-gradient(to right, #9B8ECF, #7B4AE3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.grid-background {
+  background-image: 
+    linear-gradient(to right, rgba(155, 142, 207, 0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(155, 142, 207, 0.15) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .flex {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .w-\[400px\] {
+    width: 100vw !important;
+  }
+  .pl-\[20vw\], .pr-\[20vw\] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
