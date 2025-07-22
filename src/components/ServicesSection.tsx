@@ -201,12 +201,12 @@ class ErrorBoundary extends React.Component<
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error: Error) {
+  static getDerivedStateFromError() {
     return { hasError: true };
   }
 
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error('3D Model Error:', error, errorInfo);
+  componentDidCatch() {
+    // console.error('3D Model Error:', error, errorInfo);
   }
 
   render() {
@@ -320,7 +320,6 @@ const faqs = [
 
 export default function ServicesSection() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
-  const [hoveredModel, setHoveredModel] = useState<string | null>(null);
   const isMobile = useIsMobile();
 
   return (
@@ -362,8 +361,8 @@ export default function ServicesSection() {
                     transition={{ duration: 0.5, delay: index * 0.1 }}
                     viewport={{ once: true }}
                     className="bg-[#1A1443] rounded-2xl p-8 hover:bg-[#2D1B69] transition-colors duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7B4AE3] focus-visible:bg-[#2D1B69]"
-                    onMouseEnter={() => !isMobile && setHoveredModel(service.model || null)}
-                    onMouseLeave={() => !isMobile && setHoveredModel(null)}
+                    onMouseEnter={() => { }}
+                    onMouseLeave={() => { }}
                     onKeyDown={(e) => {
                       if (e.key === "Enter" || e.key === " ") {
                         e.preventDefault();
