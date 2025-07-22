@@ -122,6 +122,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
+        {/* Favicon */}
+        <link rel="icon" href="/src/app/darrellLogo.ico" type="image/x-icon" />
         {/* Additional meta tags for better SEO */}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#0F0A1F" />
