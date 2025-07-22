@@ -1,5 +1,6 @@
 import './globals.css';
 import type { Metadata } from 'next';
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://darrellotoo.com'), // Replace with your actual domain
@@ -357,6 +358,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="bg-black min-h-screen">
         {children}
+        <Analytics />
       </body>
     </html>
   );
