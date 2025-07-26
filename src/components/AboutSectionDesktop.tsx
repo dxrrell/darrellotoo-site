@@ -1,15 +1,19 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import Image from 'next/image';
-import { AnimatePresence, motion } from 'framer-motion';
 import { useIsMobile } from "@/hooks/useIsMobile";
 
-export default function AboutSection() {
+gsap.registerPlugin(ScrollTrigger, useGSAP);
+
+export default function AboutSectionDesktop() {
   const sectionRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const [activeCard, setActiveCard] = useState(0);
-  const [hasTapped, setHasTapped] = useState(false);
-  const [showTapCue, setShowTapCue] = useState(true);
   const isMobile = useIsMobile();
 
   // Mouse position tracking for grid background effect (used in CSS custom properties)
@@ -30,7 +34,32 @@ export default function AboutSection() {
       return () => grid.removeEventListener("mousemove", handleMouseMove);
     }
   }, []);
-  // To further optimize the grid background effect, consider debouncing or using requestAnimationFrame for handleMouseMove.
+
+  // Horizontal scroll animation with progress bar update (desktop only)
+  useGSAP(() => {
+    if (isMobile) return; // Skip GSAP on mobile
+    
+    const cards = cardsRef.current;
+    if (cards && sectionRef.current && progressRef.current) {
+      gsap.to(cards, {
+        x: () => `-${cards.scrollWidth - window.innerWidth}px`,
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          pin: true,
+          scrub: 1,
+          snap: 1 / (cards.children.length - 1),
+          end: () => `+=${cards.scrollWidth}`,
+          onUpdate: self => {
+            if (progressRef.current) {
+              progressRef.current.style.width = `${self.progress * 100}%`;
+              setActiveCard(Math.round(self.progress * (cards.children.length - 1)));
+            }
+          }          
+        },
+      });
+    }
+  }, { scope: sectionRef, dependencies: [isMobile] });
 
   const aboutCards = [
     {
@@ -55,10 +84,9 @@ export default function AboutSection() {
       title: "Innovation & Research",
       description: "With a systems mindset and curiosity-driven approach, led technical research from academic labs to federal partnerships. Notably, a DOE project identified $785K in potential cost savings. Currently preparing research for publication and continuing to support R&D in the defense space.",
       highlight: "$785K Savings",
-      stats: ["4+ Years", "1 Publication", "U.S. Department of Energy Project"],
+      stats: ["4+ Years", "1 Publication", "DOE Project"],
       image: "/images/about/innovation-research.JPG",
-      imageAlt: "Darrell working on innovative research project",
-      imagePosition: "object-[center_25%]"
+      imageAlt: "Darrell working on innovative research project"
     },
     {
       icon: (
@@ -69,7 +97,7 @@ export default function AboutSection() {
       title: "Leadership & Mentorship",
       description: "Over the past 3+ years, led and scaled impact in NSBE—serving as President, Alumni Advisor, and mentor to rising engineers. Leadership rooted in equity, visibility, and actionable support for the next generation of Black technologists.",
       highlight: "50+ Mentees",
-      stats: ["3+ Years", "6 Awards", "VCU Commencement Speaker"],
+      stats: ["3+ Years", "6 Awards", "VCU Speaker"],
       image: "/images/about/leadership-mentorship.JPG",
       imageAlt: "Darrell speaking at leadership event"
     },
@@ -82,10 +110,9 @@ export default function AboutSection() {
       title: "Public Speaking",
       description: "Spoken to over 4,000 audience members across panels, conferences, and ceremonies. Talks explore the intersections of engineering, identity, innovation, and life design—always aiming to bring clarity, humility, and motivation.",
       highlight: "4,000+ Audience",
-      stats: ["15+ Talks", "VCU Commencement", "Conferences & Panels"],
+      stats: ["15+ Talks", "VCU Commencement", "Industry Forums"],
       image: "/images/about/public-speaking.JPG",
-      imageAlt: "Darrell giving a presentation",
-      imagePosition: "object-[center_25%]"
+      imageAlt: "Darrell giving a presentation"
     },
     {
       icon: (
@@ -101,14 +128,6 @@ export default function AboutSection() {
       imageAlt: "Darrell analyzing machine learning models"
     },
   ];
-
-  // Show tap cue for 5 seconds after load or card change, but never again after first tap
-  useEffect(() => {
-    if (hasTapped) return;
-    setShowTapCue(true);
-    const timer = setTimeout(() => setShowTapCue(false), 5000);
-    return () => clearTimeout(timer);
-  }, [activeCard, hasTapped]);
 
   return (
     <section
@@ -175,6 +194,7 @@ export default function AboutSection() {
             {/* Horizontal Scroll Cards */}
             <div className="flex-grow overflow-hidden">
               <div
+                ref={cardsRef}
                 className="flex h-full gap-4"
                 style={{ width: "max-content" }}
               >
@@ -259,114 +279,103 @@ export default function AboutSection() {
 
         {/* Mobile Layout */}
         {isMobile && (
-          <div className="py-8 px-0">
+          <div className="py-20 px-6">
             {/* Mobile Header */}
-            <div className="text-center mb-4 px-6">
+            <div className="text-center mb-12">
               <h2 className="text-5xl font-extrabold text-gradient leading-tight mb-6">
                 About Me
               </h2>
               <div className="w-16 h-1 bg-gradient-to-r from-[#7B4AE3] to-[#9B8ECF] mx-auto mb-6"></div>
-              {/* To adjust the font size of the description below, edit the 'text-base' class */}
-              <p className="text-[#E8E6F3] text-base leading-relaxed">
-                Tap each card to explore my expertise and experience across engineering, leadership, and innovation.
+              <p className="text-[#E8E6F3] text-lg leading-relaxed">
+                Explore my expertise and experience across engineering, leadership, and innovation.
               </p>
-              {/* Progress Dots below the description */}
-              <div className="flex justify-center items-center mt-2 -mb-15 w-full">
-                <div className="flex gap-1 transform rotate-90">
-                  {aboutCards.slice().reverse().map((_, idx) => {
-                    const reversedIdx = aboutCards.length - 1 - idx;
-                    return (
-                      <span
-                        key={idx}
-                        className={`w-2 h-2 rounded-full transition-all duration-300 ${reversedIdx === activeCard ? "bg-[#7B4AE3] scale-125" : "bg-[#7B4AE3]/30"}`}
-                      />
-                    );
-                  })}
-                </div>
-              </div>
             </div>
 
-            {/* --- MOBILE TAP-TO-ADVANCE CARD CAROUSEL --- */}
-            <div className="flex flex-col items-center justify-center w-full">
-              {/* Tap cue: text + animated arrow, fades out after first tap, now above the card */}
-              {showTapCue && !hasTapped && (
-                <div className="flex flex-col items-center mb-2 animate-fade-in text-center w-full">
-                  <span className="text-xs text-[#7B4AE3] font-medium mb-1 mx-auto">Tap card to see next</span>
-                  <span className="animate-pulse-arrow text-2xl text-[#7B4AE3] mx-auto">&#8594;</span>
-                </div>
-              )}
-              <AnimatePresence mode="wait" initial={false}>
-                <motion.div
-                  key={activeCard}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1, boxShadow: "0 4px 32px 0 rgba(123,74,227,0.10)" }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.35, ease: "easeInOut" }}
+            {/* Vertical Cards Stack */}
+            <div className="space-y-8">
+              {aboutCards.map((card, index) => (
+                <div
+                  key={index}
+                  className="group bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7B4AE3] focus-visible:shadow-xl"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      // Optional: Add any card interaction here
+                    }
+                  }}
+                  role="button"
+                  aria-label={`${card.title} - ${card.description}`}
                 >
-                  <div
-                    className="group bg-white border border-gray-200 rounded-lg overflow-hidden shadow-xl transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7B4AE3] w-[95vw] max-w-[350px] cursor-pointer select-none mx-auto ml-2"
-                    tabIndex={0}
-                    role="button"
-                    aria-label={`${aboutCards[activeCard].title} - ${aboutCards[activeCard].description}`}
-                    onClick={() => {
-                      setActiveCard((prev) => (prev + 1) % aboutCards.length);
-                      setHasTapped(true);
-                      setShowTapCue(false);
-                    }}
-                    onPointerDown={e => e.currentTarget.classList.add('scale-95', 'bg-[#F3F0FA]')}
-                    onPointerUp={e => e.currentTarget.classList.remove('scale-95', 'bg-[#F3F0FA]')}
-                    onPointerLeave={e => e.currentTarget.classList.remove('scale-95', 'bg-[#F3F0FA]')}
-                  >
+                  {/* Mobile Card Layout */}
+                  <div className="flex flex-col md:flex-row">
                     {/* Image Section */}
-                    <div className="relative w-full h-[120px]">
+                    <div className="relative w-full md:w-1/2 h-64 md:h-auto">
                       <Image
-                        src={aboutCards[activeCard].image}
-                        alt={aboutCards[activeCard].imageAlt}
-                        width={350}
-                        height={120}
-                        className={`w-full h-full object-cover rounded-t-lg ${aboutCards[activeCard].imagePosition || ''}`}
-                        priority={true}
+                        src={card.image}
+                        alt={card.imageAlt}
+                        width={600}
+                        height={400}
+                        className="w-full h-full object-cover"
+                        priority={index < 2}
                       />
+                      {/* Image overlay with icon */}
+                      <div className="absolute top-4 right-4">
+                        <div className="bg-white/90 backdrop-blur-sm p-2 rounded-lg shadow-lg">
+                          {card.icon}
+                        </div>
+                      </div>
                     </div>
 
                     {/* Content Section */}
-                    <div className="p-3 flex flex-col justify-between">
+                    <div className="p-6 md:p-8 flex flex-col justify-between">
                       <div>
-                        <h3 className="text-lg font-bold text-black mb-2 leading-tight">
-                          {aboutCards[activeCard].title}
+                        <h3 className="text-2xl md:text-3xl font-bold text-black mb-4">
+                          {card.title}
                         </h3>
-                        <p className="text-gray-800 text-xs leading-snug mb-2">
-                          {aboutCards[activeCard].description}
+                        <p className="text-gray-800 text-base leading-relaxed mb-6">
+                          {card.description}
                         </p>
                       </div>
 
                       <div>
-                        <div className="flex flex-wrap gap-1 mb-2">
-                          {aboutCards[activeCard].stats.map((stat, i) => (
+                        <div className="flex flex-wrap gap-2 mb-4">
+                          {card.stats.map((stat, i) => (
                             <span
                               key={i}
-                              className="bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-[11px] font-medium border border-gray-200 flex-1 min-w-[45%] max-w-[48%] text-center"
-                              style={{ flexBasis: '48%' }}
+                              className="bg-gray-100 text-gray-800 px-3 py-1 rounded text-sm font-medium border border-gray-200"
                             >
                               {stat}
                             </span>
                           ))}
                         </div>
-                        {/* Single Highlight */}
-                        <div className="flex items-center justify-center">
-                          <span className="bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-[11px] font-semibold border border-gray-200 flex-1 min-w-[45%] max-w-[48%] text-center" style={{ flexBasis: '48%' }}>
-                            {aboutCards[activeCard].highlight}
+                        <div className="flex items-center justify-between">
+                          <span className="bg-gray-100 text-gray-800 px-4 py-2 rounded text-sm font-semibold border border-gray-200">
+                            {card.highlight}
                           </span>
                         </div>
                       </div>
                     </div>
                   </div>
-                </motion.div>
-              </AnimatePresence>
+                </div>
+              ))}
             </div>
           </div>
         )}
       </div>
+
+      {/* Enhanced Progress Bar (Desktop only) */}
+      {!isMobile && (
+        <div className="fixed left-0 bottom-0 w-full h-6 bg-[#2D1B69]/30 z-50 backdrop-blur-sm">
+          <div
+            ref={progressRef}
+            className="h-full bg-gradient-to-r from-[#7B4AE3] to-[#9B8ECF] transition-all duration-300 relative"
+            style={{ width: "0%" }}
+          >
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-4 h-4 bg-white rounded-full shadow-lg"></div>
+          </div>
+        </div>
+      )}
     </section>
   );
-}
+} 

@@ -33,4 +33,16 @@
 
 .text-rotate-space {
   white-space: pre;
+}
+
+.fab-logo-img {
+  transform: translateX(8px);
+}
+
+@media (max-width: 768px) {
+  .hero-rotating-text-row {
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
 } 

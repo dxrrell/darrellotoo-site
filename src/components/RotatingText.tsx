@@ -19,9 +19,9 @@ function cn(...classes: string[]) {
 interface RotatingTextProps {
   texts: string[];
   transition?: {
-    type: string;
-    damping: number;
-    stiffness: number;
+    type: "spring" | "tween" | "inertia";
+    damping?: number;
+    stiffness?: number;
   };
   initial?: {
     y: string;

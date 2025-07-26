@@ -1,26 +1,16 @@
 "use client";
-import React, { useState, Suspense } from "react";
+import React, { useState, Suspense, lazy } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls, useGLTF, Environment } from "@react-three/drei";
 import Image from 'next/image';
+import { useIsMobile } from "@/hooks/useIsMobile";
 
-// Mobile detection hook
-function useIsMobile() {
-  const [isMobile, setIsMobile] = React.useState(false);
+// Lazy load Three.js components to reduce initial bundle size
+const Canvas = lazy(() => import("@react-three/fiber").then(module => ({ default: module.Canvas })));
+const OrbitControls = lazy(() => import("@react-three/drei").then(module => ({ default: module.OrbitControls })));
+const Environment = lazy(() => import("@react-three/drei").then(module => ({ default: module.Environment })));
 
-  React.useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  return isMobile;
-}
+// Import hooks directly since they can't be lazy loaded
+import { useGLTF } from "@react-three/drei";
 
 interface Service {
   title: string;
@@ -100,32 +90,50 @@ function LoadingSpinner() {
               transform: 'translate(-50%, -50%)',
             }}
             animate={{
-              x: [0, 6, 0, -6, 0],
-              y: [0, -6, 0, 6, 0],
+              x: Math.cos((i * 120 * Math.PI) / 180) * 8,
+              y: Math.sin((i * 120 * Math.PI) / 180) * 8,
             }}
             transition={{
               duration: 1.5,
               repeat: Infinity,
+              ease: "easeInOut",
               delay: i * 0.2,
-              ease: "easeInOut"
             }}
           />
         ))}
-        {/* Center dot */}
-        <motion.div
-          className="absolute w-1 h-1 bg-[#9B8ECF] rounded-full"
-          style={{
-            left: '50%',
-            top: '50%',
-            transform: 'translate(-50%, -50%)',
-          }}
-          animate={{ scale: [1, 1.5, 1] }}
-          transition={{ duration: 0.8, repeat: Infinity, ease: "easeInOut" }}
-        />
       </div>
     </div>
   );
 }
+
+// Lazy-loaded Canvas wrapper with error boundary
+const LazyCanvas = ({ children, ...props }: any) => {
+  return (
+    <Suspense fallback={<div className="h-48 bg-[#0F0A1F]/50 rounded-lg flex items-center justify-center"><LoadingSpinner /></div>}>
+      <Canvas {...props}>
+        {children}
+      </Canvas>
+    </Suspense>
+  );
+};
+
+// Lazy-loaded OrbitControls wrapper
+const LazyOrbitControls = (props: any) => {
+  return (
+    <Suspense fallback={null}>
+      <OrbitControls {...props} />
+    </Suspense>
+  );
+};
+
+// Lazy-loaded Environment wrapper
+const LazyEnvironment = (props: any) => {
+  return (
+    <Suspense fallback={null}>
+      <Environment {...props} />
+    </Suspense>
+  );
+};
 
 // Enhanced 3D Model Component with Error Handling
 function ModelWithErrorHandling({ model, service, icon }: { model: string; service: string; icon: string }) {
@@ -156,7 +164,7 @@ function ModelWithErrorHandling({ model, service, icon }: { model: string; servi
           <LoadingSpinner />
         </div>
       )}
-      <Canvas
+      <LazyCanvas
         camera={{ 
           position: model === "drone" 
             ? [0, 0, 3] 
@@ -168,25 +176,23 @@ function ModelWithErrorHandling({ model, service, icon }: { model: string; servi
         style={{ background: 'transparent' }}
         onError={() => setHasError(true)}
       >
-        <Suspense fallback={<ModelLoader />}>
-          <ambientLight intensity={0.5} />
-          <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} />
-          <Environment preset="city" />
-          <OrbitControls
-            enableZoom={false}
-            autoRotate
-            autoRotateSpeed={0.5}
-            minPolarAngle={Math.PI / 4}
-            maxPolarAngle={Math.PI / 2}
-            target={[0, 0, 0]}
-          />
-          <ErrorBoundary fallback={<ModelErrorFallback service={service} icon={icon} />}>
-            {model === "pc" ? <PC /> : 
-             model === "drone" ? <Drone /> :
-             model === "motherboard" ? <Motherboard /> : null}
-          </ErrorBoundary>
-        </Suspense>
-      </Canvas>
+        <ambientLight intensity={0.5} />
+        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} />
+        <LazyEnvironment preset="city" />
+        <LazyOrbitControls
+          enableZoom={false}
+          autoRotate
+          autoRotateSpeed={0.5}
+          minPolarAngle={Math.PI / 4}
+          maxPolarAngle={Math.PI / 2}
+          target={[0, 0, 0]}
+        />
+        <ErrorBoundary fallback={<ModelErrorFallback service={service} icon={icon} />}>
+          {model === "pc" ? <PC /> : 
+           model === "drone" ? <Drone /> :
+           model === "motherboard" ? <Motherboard /> : null}
+        </ErrorBoundary>
+      </LazyCanvas>
     </div>
   );
 }

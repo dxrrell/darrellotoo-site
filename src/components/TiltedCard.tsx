@@ -18,6 +18,8 @@ interface TiltedCardProps {
   overlayContent?: React.ReactNode;
   displayOverlayContent?: boolean;
   customContent?: React.ReactNode;
+  tiltX?: number; // external tilt X (in degrees)
+  tiltY?: number; // external tilt Y (in degrees)
 }
 
 const springValues = {
@@ -41,6 +43,8 @@ export default function TiltedCard({
   overlayContent = null,
   displayOverlayContent = false,
   customContent = null,
+  tiltX,
+  tiltY,
 }: TiltedCardProps) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -92,6 +96,10 @@ export default function TiltedCard({
     rotateFigcaption.set(0);
   }
 
+  // If external tilt is provided, use it; otherwise, use mouse-based tilt
+  const appliedTiltX = typeof tiltX === 'number' ? tiltX : rotateX.get();
+  const appliedTiltY = typeof tiltY === 'number' ? tiltY : rotateY.get();
+
   return (
     <div
       ref={ref}
@@ -110,52 +118,57 @@ export default function TiltedCard({
         </div>
       )}
 
-      <motion.div
+      <div
         className="tilted-card-inner"
-        style={{
-          width: imageWidth,
-          height: imageHeight,
-          rotateX,
-          rotateY,
-          scale,
-        }}
+        style={{ width: imageWidth, height: imageHeight }}
       >
-        {customContent ? (
-          customContent
-        ) : (
-          <motion.div style={{ width: imageWidth, height: imageHeight }}>
-            <Image
-              src={imageSrc || ''}
-              alt={altText}
-              width={Number(imageWidth?.replace('px','')) || 300}
-              height={Number(imageHeight?.replace('px','')) || 300}
-              className="tilted-card-img"
-              style={{ width: imageWidth, height: imageHeight }}
-            />
-          </motion.div>
-        )}
-
-        {displayOverlayContent && overlayContent && (
-          <motion.div
-            className="tilted-card-overlay"
-          >
-            {overlayContent}
-          </motion.div>
-        )}
-      </motion.div>
-
-      {showTooltip && (
         <motion.div
-          className="tilted-card-caption"
           style={{
-            x,
-            y,
-            opacity,
-            rotate: rotateFigcaption,
+            width: imageWidth,
+            height: imageHeight,
+            rotateX: appliedTiltX,
+            rotateY: appliedTiltY,
+            scale,
           }}
         >
-          {captionText}
+          {customContent ? (
+            customContent
+          ) : (
+            <motion.div style={{ width: imageWidth, height: imageHeight }}>
+              <Image
+                src={imageSrc || ''}
+                alt={altText}
+                width={Number(imageWidth?.replace('px','')) || 300}
+                height={Number(imageHeight?.replace('px','')) || 300}
+                className="tilted-card-img"
+                style={{ width: imageWidth, height: imageHeight }}
+              />
+            </motion.div>
+          )}
+
+          {displayOverlayContent && overlayContent && (
+            <div className="tilted-card-overlay">
+              <motion.div>
+                {overlayContent}
+              </motion.div>
+            </div>
+          )}
         </motion.div>
+      </div>
+
+      {showTooltip && (
+        <div className="tilted-card-caption">
+          <motion.div
+            style={{
+              x,
+              y,
+              opacity,
+              rotate: rotateFigcaption,
+            }}
+          >
+            {captionText}
+          </motion.div>
+        </div>
       )}
     </div>
   );
