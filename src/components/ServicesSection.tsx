@@ -40,15 +40,7 @@ function Motherboard() {
   return <primitive object={scene} scale={0.5} />;
 }
 
-// Three.js compatible loading component
-function ModelLoader() {
-  return (
-    <mesh>
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color="#7B4AE3" />
-    </mesh>
-  );
-}
+
 
 // Error Boundary Component for 3D Models
 function ModelErrorFallback({ service, icon }: { service: string; icon: string }) {
@@ -107,7 +99,7 @@ function LoadingSpinner() {
 }
 
 // Lazy-loaded Canvas wrapper with error boundary
-const LazyCanvas = ({ children, ...props }: any) => {
+const LazyCanvas = ({ children, ...props }: React.ComponentProps<typeof Canvas>) => {
   return (
     <Suspense fallback={<div className="h-48 bg-[#0F0A1F]/50 rounded-lg flex items-center justify-center"><LoadingSpinner /></div>}>
       <Canvas {...props}>
@@ -118,7 +110,7 @@ const LazyCanvas = ({ children, ...props }: any) => {
 };
 
 // Lazy-loaded OrbitControls wrapper
-const LazyOrbitControls = (props: any) => {
+const LazyOrbitControls = (props: React.ComponentProps<typeof OrbitControls>) => {
   return (
     <Suspense fallback={null}>
       <OrbitControls {...props} />
@@ -127,7 +119,7 @@ const LazyOrbitControls = (props: any) => {
 };
 
 // Lazy-loaded Environment wrapper
-const LazyEnvironment = (props: any) => {
+const LazyEnvironment = (props: React.ComponentProps<typeof Environment>) => {
   return (
     <Suspense fallback={null}>
       <Environment {...props} />
