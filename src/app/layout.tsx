@@ -70,6 +70,12 @@ export const metadata: Metadata = {
     description: "Expert mechanical engineer and technical consultant Emmanuel Darrell Otoo (Darrell Otoo) offering custom PC building, drone construction, hardware repairs, UI/UX design, public speaking, consulting, tutoring, and career coaching services.",
     images: [
       {
+        url: "/og-image-square.png",
+        width: 1200,
+        height: 1200,
+        alt: "Darrell Otoo - Professional Mechanical Engineer & Technical Consultant",
+      },
+      {
         url: "/og-image.png",
         width: 1200,
         height: 630,
@@ -120,7 +126,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         
         {/* Additional Open Graph meta tags for better social media sharing */}
         <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
+        <meta property="og:image:height" content="1200" />
         <meta property="og:image:type" content="image/png" />
         <meta name="twitter:image:alt" content="Darrell Otoo - Professional Mechanical Engineer & Technical Consultant" />
         <meta name="theme-color" content="#0F0A1F" />
