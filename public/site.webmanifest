@@ -1,0 +1,27 @@
+{
+  "name": "Darrell Otoo",
+  "short_name": "Darrell Otoo",
+  "description": "Professional mechanical engineer and technical consultant Emmanuel Darrell Otoo offering custom PC building, drone construction, hardware repairs, UI/UX design, public speaking, consulting, tutoring, and career coaching.",
+  "icons": [
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/darrellLogo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#0F0A1F",
+  "background_color": "#000000",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/"
+} 

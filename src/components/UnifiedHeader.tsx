@@ -201,7 +201,18 @@ export default function UnifiedHeader() {
             onClick={() => setFabOpen((v) => !v)}
             style={{ pointerEvents: "auto" }}
           >
-            <Image src="/darrellLogoTransparent.png" alt="Menu" width={48} height={48} priority className="fab-logo-img" />
+            <Image 
+              src="/darrellLogoTransparent.png" 
+              alt="Menu" 
+              width={48} 
+              height={48} 
+              priority 
+              className="fab-logo-img"
+              style={{ 
+                display: 'block',
+                margin: '0 auto'
+              }}
+            />
           </button>
           {/* FAB Menu */}
           <AnimatePresence>

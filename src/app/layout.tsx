@@ -70,10 +70,10 @@ export const metadata: Metadata = {
     description: "Expert mechanical engineer and technical consultant Emmanuel Darrell Otoo (Darrell Otoo) offering custom PC building, drone construction, hardware repairs, UI/UX design, public speaking, consulting, tutoring, and career coaching services.",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Darrell Otoo",
+        alt: "Darrell Otoo - Professional Mechanical Engineer & Technical Consultant",
       },
     ],
   },
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Darrell Otoo",
     description: "Expert mechanical engineer and technical consultant Emmanuel Darrell Otoo (Darrell Otoo) offering custom PC building, drone construction, hardware repairs, UI/UX design, public speaking, consulting, tutoring, and career coaching services.",
-    images: ["/twitter-image.jpg"],
+    images: ["/twitter-image.png"],
   },
   alternates: {
     canonical: "https://darrellotoo.vercel.app",
@@ -111,8 +111,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/src/app/darrellLogo.ico" type="image/x-icon" />
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
+        <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+        <link rel="apple-touch-icon" href="/darrellLogo.png" />
+        <link rel="manifest" href="/site.webmanifest" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        
+        {/* Additional Open Graph meta tags for better social media sharing */}
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:type" content="image/png" />
+        <meta name="twitter:image:alt" content="Darrell Otoo - Professional Mechanical Engineer & Technical Consultant" />
         <meta name="theme-color" content="#0F0A1F" />
         <meta name="msapplication-TileColor" content="#0F0A1F" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -133,7 +143,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               "jobTitle": "Mechanical Engineer & Technical Consultant",
               "description": "Professional mechanical engineer and technical consultant Emmanuel Darrell Otoo (also known as Darrell Otoo) offering comprehensive engineering and technical services",
               "url": "https://darrellotoo.vercel.app",
-              "image": "https://darrellotoo.vercel.app/profile-image.jpg",
+              "image": "https://darrellotoo.vercel.app/darrellLogo.png",
               "sameAs": [
                 "https://linkedin.com/in/darrellotoo",
                 "https://github.com/darrellotoo"

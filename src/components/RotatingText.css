@@ -36,7 +36,9 @@
 }
 
 .fab-logo-img {
-  transform: translateX(8px);
+  transform: translateX(0);
+  object-fit: contain;
+  object-position: center;
 }
 
 @media (max-width: 768px) {
