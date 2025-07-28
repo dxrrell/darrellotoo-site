@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { AnimatePresence } from "framer-motion";
 
-
+import { useIsMobile } from "@/hooks/useIsMobile";
 import NavLink from "@/components/NavLink";
 import CurvedLoop from './CurvedLoop';
 import Image from "next/image";
@@ -13,6 +13,7 @@ export default function UnifiedHeader() {
   const [scrollY, setScrollY] = useState(0);
   const [windowHeight, setWindowHeight] = useState(0);
   const [fabOpen, setFabOpen] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -99,7 +100,7 @@ export default function UnifiedHeader() {
             <div className="w-full" style={{ pointerEvents: "auto" }}>
               <CurvedLoop 
                 marqueeText="Engineer ✦ Designer ✦ Creator ✦ Problem Solver ✦ Mentor ✦ Speaker ✦"
-                speed={1.5}
+                speed={isMobile ? 6 : 1.5}
                 curveAmount={300}
                 direction="left"
                 interactive={true}
