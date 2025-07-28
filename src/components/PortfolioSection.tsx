@@ -1,16 +1,6 @@
 "use client";
 import React, { useRef, useEffect, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TiltedCard from '@/components/TiltedCard';
-import { useIsMobile } from "@/hooks/useIsMobile";
-
-// Safely register GSAP plugins
-try {
-  gsap.registerPlugin(ScrollTrigger);
-} catch (error) {
-  console.warn('GSAP ScrollTrigger registration failed:', error);
-}
 
 // Gyroscope hook for mobile tilt
 function useGyroscope() {
@@ -50,7 +40,6 @@ interface ProjectIconProps {
   index: number;
   isExpanded: boolean;
   onExpand: (index: number) => void;
-  isMobile?: boolean;
   tiltX?: number;
   tiltY?: number;
 }
@@ -177,74 +166,9 @@ const projects = [
   }
 ];
 
-const ProjectIcon: React.FC<ProjectIconProps> = ({ project, index, isExpanded, onExpand, isMobile = false, tiltX, tiltY }) => {
+const ProjectIcon: React.FC<ProjectIconProps> = ({ project, index, isExpanded, onExpand, tiltX, tiltY }) => {
   const iconRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (isMobile) return; // Skip GSAP on mobile
-    
-    if (isExpanded) {
-      gsap.to(iconRef.current, {
-        scale: 1.2,
-        duration: 0.3,
-        ease: "back.out(1.7)"
-      });
-    } else {
-      gsap.to(iconRef.current, {
-        scale: 1,
-        duration: 0.3,
-        ease: "back.out(1.7)"
-      });
-    }
-  }, [isExpanded, isMobile]);
-
-  // Mobile-friendly project card
-  if (isMobile) {
-    return (
-      <div
-        ref={iconRef}
-        className={`relative cursor-pointer transition-all duration-300 ${
-          isExpanded ? 'z-50' : 'z-10'
-        }`}
-        onClick={() => onExpand(index)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            onExpand(index);
-          }
-        }}
-        tabIndex={0}
-        role="button"
-        aria-label={`${project.title} - ${project.description}`}
-      >
-        <TiltedCard
-          imageSrc=""
-          altText={project.title}
-          captionText={project.title}
-          containerHeight="96px"
-          containerWidth="96px"
-          imageHeight="96px"
-          imageWidth="96px"
-          rotateAmplitude={30}
-          scaleOnHover={1.1}
-          showMobileWarning={false}
-          showTooltip={false}
-          displayOverlayContent={false}
-          customContent={
-            <div className={`w-24 h-24 aspect-square rounded-2xl bg-[#0F0A1F]/50 backdrop-blur-sm border border-[#9B8ECF]/20 
-                          flex items-center justify-center pl-3 transition-all duration-300
-                          ${isExpanded ? 'border-[#7B4AE3]/60 shadow-2xl shadow-[#7B4AE3]/20 scale-110' : 'hover:border-[#7B4AE3]/40 hover:scale-105'} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7B4AE3] focus-visible:scale-105`}>
-              {project.icon}
-            </div>
-          }
-          tiltX={tiltX}
-          tiltY={tiltY}
-        />
-      </div>
-    );
-  }
-
-  // Desktop version with TiltedCard
   return (
     <div
       ref={iconRef}
@@ -277,11 +201,13 @@ const ProjectIcon: React.FC<ProjectIconProps> = ({ project, index, isExpanded, o
         displayOverlayContent={false}
         customContent={
           <div className={`w-24 h-24 aspect-square rounded-2xl bg-[#0F0A1F]/50 backdrop-blur-sm border border-[#9B8ECF]/20 
-                        flex items-center justify-center pl-2 transition-all duration-300
-                        ${isExpanded ? 'border-[#7B4AE3]/60 shadow-2xl shadow-[#7B4AE3]/20' : 'hover:border-[#7B4AE3]/40'} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7B4AE3]`}>
+                        flex items-center justify-center pl-3 transition-all duration-300
+                        ${isExpanded ? 'border-[#7B4AE3]/60 shadow-2xl shadow-[#7B4AE3]/20 scale-110' : 'hover:border-[#7B4AE3]/40 hover:scale-105'} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7B4AE3] focus-visible:scale-105`}>
             {project.icon}
           </div>
         }
+        tiltX={tiltX}
+        tiltY={tiltY}
       />
     </div>
   );
@@ -290,27 +216,9 @@ const ProjectIcon: React.FC<ProjectIconProps> = ({ project, index, isExpanded, o
 export default function PortfolioSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const isMobile = useIsMobile();
   const gyroTilt = useGyroscope();
 
-  useEffect(() => {
-    if (isMobile) return; // Skip mouse tracking on mobile
-    
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      setMousePosition({ x, y });
-    };
 
-    const section = sectionRef.current;
-    if (section) {
-      section.addEventListener('mousemove', handleMouseMove);
-      return () => section.removeEventListener('mousemove', handleMouseMove);
-    }
-  }, [isMobile]);
 
   // Handle escape key to close expanded project
   useEffect(() => {
@@ -342,35 +250,17 @@ export default function PortfolioSection() {
       id="portfolio"
       className="relative min-h-screen bg-[#0F0A1F] overflow-hidden"
     >
-      {/* Dynamic Grid Background (Desktop only) */}
-      {!isMobile && (
-        <div
-          className="absolute inset-0 z-0 opacity-30"
-          style={{
-            backgroundImage: `
-              radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(123, 74, 227, 0.25) 0%, transparent 50%),
-              linear-gradient(to right, rgba(155, 142, 207, 0.15) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(155, 142, 207, 0.15) 1px, transparent 1px)
-            `,
-            backgroundSize: '100% 100%, 40px 40px, 40px 40px',
-            transition: 'background-position 0.1s ease-out',
-          }}
-        />
-      )}
-
-      {/* Static Grid Background (Mobile) */}
-      {isMobile && (
-        <div
-          className="absolute inset-0 z-0 opacity-30"
-          style={{
-            backgroundImage: `
-              linear-gradient(to right, rgba(155, 142, 207, 0.15) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(155, 142, 207, 0.15) 1px, transparent 1px)
-            `,
-            backgroundSize: '40px 40px',
-          }}
-        />
-      )}
+      {/* Static Grid Background */}
+      <div
+        className="absolute inset-0 z-0 opacity-30"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, rgba(155, 142, 207, 0.15) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(155, 142, 207, 0.15) 1px, transparent 1px)
+          `,
+          backgroundSize: '40px 40px',
+        }}
+      />
 
       {/* Content */}
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center p-4 sm:p-8">
@@ -382,8 +272,8 @@ export default function PortfolioSection() {
         <div
           className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 max-w-6xl mx-auto w-full place-items-center"
           style={{
-            paddingLeft: isMobile ? 8 : 0,
-            paddingRight: isMobile ? 8 : 0,
+            paddingLeft: 8,
+            paddingRight: 8,
           }}
         >
           {projects.map((project, index) => (
@@ -393,9 +283,8 @@ export default function PortfolioSection() {
                 index={index}
                 isExpanded={expandedIndex === index}
                 onExpand={(idx) => setExpandedIndex(expandedIndex === idx ? null : idx)}
-                isMobile={isMobile}
-                tiltX={isMobile ? gyroTilt.x : undefined}
-                tiltY={isMobile ? gyroTilt.y : undefined}
+                tiltX={gyroTilt.x}
+                tiltY={gyroTilt.y}
               />
             </div>
           ))}
@@ -403,7 +292,7 @@ export default function PortfolioSection() {
 
         {/* Instructions */}
         <p className="text-[#E8E6F3]/80 text-sm mt-8 md:mt-12 text-center max-w-md">
-          {isMobile ? "Tap on any project icon to view details." : "Click on any project icon to view details."}
+          Tap on any project icon to view details.
         </p>
       </div>
 

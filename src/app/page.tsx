@@ -1,6 +1,6 @@
 import UnifiedHeader from "@/components/UnifiedHeader";
 import AboutSectionWrapper from "@/components/AboutSectionWrapper";
-import PortfolioSection from "@/components/PortfolioSection";
+import PortfolioSectionWrapper from "@/components/PortfolioSectionWrapper";
 import ServicesSection from "@/components/ServicesSection";
 import ContactSection from "@/components/ContactSection";
 
@@ -19,7 +19,7 @@ export default function Home() {
       
       {/* Portfolio Section */}
       <section id="portfolio" aria-labelledby="portfolio-heading">
-        <PortfolioSection />
+        <PortfolioSectionWrapper />
       </section>
       
       {/* Services Section */}
