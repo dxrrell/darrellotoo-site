@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -15,6 +15,26 @@ export default function ContactForm({ isOpen, onClose }: ContactFormProps) {
   const [errorMessage, setErrorMessage] = useState('');
   const [contactMethod, setContactMethod] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+
+  // Add keyboard support for closing modal
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+      // Prevent body scroll when modal is open
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen, onClose]);
 
   const formatPhoneNumber = (value: string) => {
     // Remove all non-numeric characters
@@ -148,21 +168,22 @@ export default function ContactForm({ isOpen, onClose }: ContactFormProps) {
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
-            className="relative bg-gradient-to-br from-[#1A1443] to-[#0F0A1F] rounded-2xl p-8 max-w-2xl w-full shadow-2xl"
+            className="relative bg-gradient-to-br from-[#1A1443] to-[#0F0A1F] rounded-2xl p-4 md:p-8 max-w-sm md:max-w-2xl w-full shadow-2xl max-h-[90vh] overflow-y-auto"
             onClick={e => e.stopPropagation()}
           >
             {/* Premium glow effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-[#7B4AE3]/20 to-[#9B8ECF]/20 rounded-2xl blur-xl" />
             
             <div className="relative">
-              <div className="flex justify-between items-center mb-8">
-                <h3 className="text-3xl font-bold bg-gradient-to-r from-[#E8E6F3] to-[#9B8ECF] bg-clip-text text-transparent">
+              <div className="flex justify-between items-center mb-6 md:mb-8">
+                <h3 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#E8E6F3] to-[#9B8ECF] bg-clip-text text-transparent">
                   Send Message
                 </h3>
                 <button
                   onClick={onClose}
                   disabled={isSubmitting}
-                  className="text-[#9B8ECF] hover:text-[#7B4AE3] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7B4AE3] focus-visible:rounded-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="text-[#9B8ECF] hover:text-[#7B4AE3] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7B4AE3] focus-visible:rounded-lg disabled:opacity-50 disabled:cursor-not-allowed p-2 -m-2 ml-auto"
+                  aria-label="Close contact form"
                 >
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

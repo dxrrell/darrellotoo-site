@@ -163,7 +163,7 @@ export default function AboutSectionDesktop() {
                 </h2>
                 <div className="w-24 h-1 bg-gradient-to-r from-[#7B4AE3] to-[#9B8ECF] mt-6"></div>
                 <p className="text-[#E8E6F3] text-lg mt-8 max-w-sm leading-relaxed">
-                  Scroll horizontally to explore my expertise and experience across engineering, leadership, and innovation.
+                  Keep scrolling to explore my expertise and experience across engineering, leadership, and innovation.
                 </p>
                 {/* Scroll Indicator */}
                 <div className="mt-8 flex items-center gap-3 text-[#9B8ECF] animate-pulse">
