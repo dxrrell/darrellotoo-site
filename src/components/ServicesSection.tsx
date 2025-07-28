@@ -300,19 +300,19 @@ const serviceCategories: ServiceCategory[] = [
 const faqs = [
   {
     question: "How do I get started with your services?",
-    answer: "Simply reach out through the contact section, and we'll schedule a consultation to discuss your needs in detail.",
+    answer: "Simply reach out through the contact section, and I'll schedule a consultation to discuss your needs in detail.",
   },
   {
     question: "Do you offer remote services?",
-    answer: "Yes, many of our services can be provided remotely, while others may require in-person interaction. We'll discuss the best approach during our initial consultation.",
+    answer: "Yes, many of my services can be provided remotely, while others may require in-person interaction. I'll discuss the best approach during our initial consultation.",
   },
   {
     question: "What areas do you service?",
-    answer: "We primarily serve the local area for in-person services, but offer remote consulting and support globally.",
+    answer: "I primarily serve the local area for in-person services, but offer remote consulting and support globally.",
   },
   {
     question: "How long does a typical project take?",
-    answer: "Project timelines vary depending on the scope and complexity. We'll provide a detailed timeline during our initial consultation.",
+    answer: "Project timelines vary depending on the scope and complexity. I'll provide a detailed timeline during our initial consultation.",
   },
 ];
 

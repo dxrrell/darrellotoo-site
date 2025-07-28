@@ -106,7 +106,7 @@ export default function AboutSection() {
   useEffect(() => {
     if (hasTapped) return;
     setShowTapCue(true);
-    const timer = setTimeout(() => setShowTapCue(false), 5000);
+    const timer = setTimeout(() => setShowTapCue(false), 10000);
     return () => clearTimeout(timer);
   }, [activeCard, hasTapped]);
 

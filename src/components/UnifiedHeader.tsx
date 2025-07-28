@@ -84,7 +84,7 @@ export default function UnifiedHeader() {
         className="fixed inset-0 flex flex-col items-center justify-center text-center select-none z-30 pointer-events-none"
         style={{
           scale,
-          y: yPosition + (windowHeight * 0.25 * (window.innerWidth < 768 ? 1 : 0)), // Only move down on mobile
+          y: yPosition + (windowHeight * 0.25 * (typeof window !== 'undefined' && window.innerWidth < 768 ? 1 : 0)), // Only move down on mobile
           opacity: showHero ? opacity : 0,
         }}
       >
