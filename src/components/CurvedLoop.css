@@ -1,0 +1,59 @@
+.curved-loop-jacket {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 200px;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+}
+
+.curved-loop-svg {
+  user-select: none;
+  width: 100vw;
+  aspect-ratio: 100 / 12;
+  overflow: visible;
+  display: block;
+  font-size: 6rem;
+  fill: #7B4AE3;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.curved-loop-text {
+  fill: #7B4AE3;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .curved-loop-svg {
+    font-size: 22rem;
+  }
+  .curved-loop-jacket {
+    height: 880px;
+  }
+}
+
+@media (max-width: 480px) {
+  .curved-loop-svg {
+    font-size: 15.2rem;
+  }
+  .curved-loop-jacket {
+    height: 640px;
+  }
+}
+
+@media (max-width: 360px) {
+  .curved-loop-svg {
+    font-size: 8.8rem;
+  }
+  .curved-loop-jacket {
+    height: 560px;
+  }
+} 

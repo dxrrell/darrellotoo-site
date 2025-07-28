@@ -5,7 +5,7 @@ import { AnimatePresence } from "framer-motion";
 
 
 import NavLink from "@/components/NavLink";
-import RotatingText from './RotatingText';
+import CurvedLoop from './CurvedLoop';
 import Image from "next/image";
 
 
@@ -84,31 +84,30 @@ export default function UnifiedHeader() {
         className="fixed inset-0 flex flex-col items-center justify-center text-center select-none z-30 pointer-events-none"
         style={{
           scale,
-          y: yPosition,
+          y: yPosition + (windowHeight * 0.25 * (window.innerWidth < 768 ? 1 : 0)), // Only move down on mobile
           opacity: showHero ? opacity : 0,
         }}
       >
-        <span className="text-[#E8E6F3] text-xl md:text-2xl mb-2">Hi I&apos;m</span>
-        <h1 className="text-4xl md:text-6xl font-extrabold mb-4 text-[#7B4AE3] tracking-tight">
-          DARRELL OTOO
-        </h1>
-        {showHero && (
-          <span className="text-[#E8E6F3] text-xl md:text-2xl flex items-center justify-center gap-2 hero-rotating-text-row">
-            I am{" "}
-            <RotatingText
-              texts={['a Developer', 'a Designer', 'a Creator', 'a Problem Solver']}
-              mainClassName="text-[#7B4AE3] font-bold inline-block"
-              staggerFrom="last"
-              initial={{ y: "100%" }}
-              animate={{ y: 0 }}
-              exit={{ y: "-120%" }}
-              staggerDuration={0.025}
-              splitLevelClassName="overflow-hidden"
-              transition={{ type: "spring", damping: 30, stiffness: 400 }}
-              rotationInterval={2000}
-            />
-          </span>
-        )}
+        <div className="flex flex-col items-center justify-center w-full max-w-6xl mx-auto px-4">
+          <div className="flex flex-col items-center justify-center -mb-50 md:mb-12">
+            <span className="text-[#E8E6F3] text-xl md:text-2xl mb-2">Hi I&apos;m</span>
+            <h1 className="text-4xl md:text-6xl font-extrabold text-[#7B4AE3] tracking-tight">
+              DARRELL OTOO
+            </h1>
+          </div>
+          {showHero && (
+            <div className="w-full" style={{ pointerEvents: "auto" }}>
+              <CurvedLoop 
+                marqueeText="Engineer ✦ Designer ✦ Creator ✦ Problem Solver ✦ Mentor ✦ Speaker ✦"
+                speed={1.5}
+                curveAmount={300}
+                direction="left"
+                interactive={true}
+                className="curved-loop-text"
+              />
+            </div>
+          )}
+        </div>
       </motion.section>
 
       {/* Sticky Header: Desktop shows nav, mobile shows only domain */}
