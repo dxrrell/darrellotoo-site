@@ -318,7 +318,20 @@ const faqs = [
 
 export default function ServicesSection() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+  const [collapsedCategories, setCollapsedCategories] = useState<Set<number>>(new Set());
   const isMobile = useIsMobile();
+
+  const toggleCategory = (categoryIndex: number) => {
+    setCollapsedCategories(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(categoryIndex)) {
+        newSet.delete(categoryIndex);
+      } else {
+        newSet.add(categoryIndex);
+      }
+      return newSet;
+    });
+  };
 
   return (
     <section id="services" className="min-h-screen bg-[#0F0A1F] py-20">
@@ -349,56 +362,87 @@ export default function ServicesSection() {
               transition={{ duration: 0.5, delay: categoryIndex * 0.2 }}
               viewport={{ once: true }}
             >
-              <h3 className="text-3xl font-bold text-[#E8E6F3] mb-8">{category.title}</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {category.services.map((service, index) => (
-                  <motion.div
-                    key={service.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                    className="bg-[#1A1443] rounded-2xl p-8 hover:bg-[#2D1B69] transition-colors duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7B4AE3] focus-visible:bg-[#2D1B69]"
-                    onMouseEnter={() => { }}
-                    onMouseLeave={() => { }}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" || e.key === " ") {
-                        e.preventDefault();
-                        // Optional: Add any card interaction here
-                      }
-                    }}
-                    tabIndex={0}
-                    role="button"
-                    aria-label={`${service.title} - ${service.description}`}
+              {/* Mobile: Collapsible Category Header */}
+              {isMobile ? (
+                <button
+                  onClick={() => toggleCategory(categoryIndex)}
+                  className="w-full flex justify-between items-center p-4 bg-[#1A1443] rounded-lg mb-4 hover:bg-[#2D1B69] transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7B4AE3]"
+                >
+                  <h3 className="text-xl font-bold text-[#E8E6F3]">{category.title}</h3>
+                  <motion.span
+                    animate={{ rotate: collapsedCategories.has(categoryIndex) ? 0 : 180 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-[#7B4AE3] text-2xl"
                   >
-                    {service.model && !isMobile ? (
-                      <ModelWithErrorHandling 
-                        model={service.model} 
-                        service={service.title} 
-                        icon={service.icon}
-                      />
-                    ) : (
-                      <div className="text-4xl mb-6">
-                        <Image
-                          src={`/icons/${service.icon}.png`}
-                          alt={service.title}
-                          width={48}
-                          height={48}
-                          className="w-12 h-12 object-contain"
-                        />
-                      </div>
-                    )}
-                    <h4 className="text-2xl font-bold text-[#E8E6F3] mb-4">{service.title}</h4>
-                    <p className="text-[#9B8ECF] mb-6">{service.description}</p>
-                    <a
-                      href="#contact"
-                      className="inline-block px-6 py-3 bg-[#7B4AE3] text-white rounded-lg hover:bg-[#9B8ECF] transition-colors duration-300"
-                    >
-                      Contact to Discuss
-                    </a>
+                    ▼
+                  </motion.span>
+                </button>
+              ) : (
+                <h3 className="text-3xl font-bold text-[#E8E6F3] mb-8">{category.title}</h3>
+              )}
+
+              {/* Services Grid - Hidden on mobile when collapsed */}
+              <AnimatePresence>
+                {(!isMobile || !collapsedCategories.has(categoryIndex)) && (
+                  <motion.div
+                    initial={isMobile ? { height: 0, opacity: 0 } : undefined}
+                    animate={isMobile ? { height: "auto", opacity: 1 } : undefined}
+                    exit={isMobile ? { height: 0, opacity: 0 } : undefined}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="overflow-hidden"
+                  >
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                      {category.services.map((service, index) => (
+                        <motion.div
+                          key={service.title}
+                          initial={{ opacity: 0, y: 20 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.5, delay: index * 0.1 }}
+                          viewport={{ once: true }}
+                          className="bg-[#1A1443] rounded-2xl p-8 hover:bg-[#2D1B69] transition-colors duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7B4AE3] focus-visible:bg-[#2D1B69]"
+                          onMouseEnter={() => { }}
+                          onMouseLeave={() => { }}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                              e.preventDefault();
+                              // Optional: Add any card interaction here
+                            }
+                          }}
+                          tabIndex={0}
+                          role="button"
+                          aria-label={`${service.title} - ${service.description}`}
+                        >
+                          {service.model && !isMobile ? (
+                            <ModelWithErrorHandling 
+                              model={service.model} 
+                              service={service.title} 
+                              icon={service.icon}
+                            />
+                          ) : (
+                            <div className="text-4xl mb-6">
+                              <Image
+                                src={`/icons/${service.icon}.png`}
+                                alt={service.title}
+                                width={48}
+                                height={48}
+                                className="w-12 h-12 object-contain"
+                              />
+                            </div>
+                          )}
+                          <h4 className="text-2xl font-bold text-[#E8E6F3] mb-4">{service.title}</h4>
+                          <p className="text-[#9B8ECF] mb-6">{service.description}</p>
+                          <a
+                            href="#contact"
+                            className="inline-block px-6 py-3 bg-[#7B4AE3] text-white rounded-lg hover:bg-[#7B4AE3]/80 transition-colors duration-300"
+                          >
+                            Contact to Discuss
+                          </a>
+                        </motion.div>
+                      ))}
+                    </div>
                   </motion.div>
-                ))}
-              </div>
+                )}
+              </AnimatePresence>
             </motion.div>
           ))}
         </div>
