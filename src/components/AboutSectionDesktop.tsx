@@ -35,7 +35,7 @@ export default function AboutSectionDesktop() {
     }
   }, []);
 
-  // Horizontal scroll animation with progress bar update (desktop only)
+  // Horizontal scroll animation with progress bar update (desktop only) - No autoscroll
   useGSAP(() => {
     if (isMobile) return; // Skip GSAP on mobile
     
@@ -48,7 +48,6 @@ export default function AboutSectionDesktop() {
           trigger: sectionRef.current,
           pin: true,
           scrub: 1,
-          snap: 1 / (cards.children.length - 1),
           end: () => `+=${cards.scrollWidth}`,
           onUpdate: self => {
             if (progressRef.current) {
@@ -292,7 +291,7 @@ export default function AboutSectionDesktop() {
             </div>
 
             {/* Vertical Cards Stack */}
-            <div className="space-y-8">
+            <div className="space-y-8 max-w-sm mx-auto">
               {aboutCards.map((card, index) => (
                 <div
                   key={index}
@@ -338,19 +337,19 @@ export default function AboutSectionDesktop() {
                         </p>
                       </div>
 
-                      <div>
-                        <div className="flex flex-wrap gap-2 mb-4">
+                      <div className="text-center">
+                        <div className="flex flex-wrap gap-2 mb-4 justify-center items-center">
                           {card.stats.map((stat, i) => (
                             <span
                               key={i}
-                              className="bg-gray-100 text-gray-800 px-3 py-1 rounded text-sm font-medium border border-gray-200"
+                              className="bg-gray-100 text-gray-800 px-3 py-1 rounded text-sm font-medium border border-gray-200 text-center"
                             >
                               {stat}
                             </span>
                           ))}
                         </div>
-                        <div className="flex items-center justify-between">
-                          <span className="bg-gray-100 text-gray-800 px-4 py-2 rounded text-sm font-semibold border border-gray-200">
+                        <div className="flex items-center justify-center">
+                          <span className="bg-gray-100 text-gray-800 px-4 py-2 rounded text-sm font-semibold border border-gray-200 text-center">
                             {card.highlight}
                           </span>
                         </div>

@@ -304,7 +304,7 @@ export default function AboutSection() {
                   transition={{ duration: 0.35, ease: "easeInOut" }}
                 >
                   <div
-                    className="group bg-white border border-gray-200 rounded-lg overflow-hidden shadow-xl transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7B4AE3] w-[95vw] max-w-[350px] cursor-pointer select-none mx-auto ml-2"
+                    className="group bg-white border border-gray-200 rounded-lg overflow-hidden shadow-xl transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7B4AE3] w-[95vw] max-w-[350px] cursor-pointer select-none mx-auto"
                     tabIndex={0}
                     role="button"
                     aria-label={`${aboutCards[activeCard].title} - ${aboutCards[activeCard].description}`}

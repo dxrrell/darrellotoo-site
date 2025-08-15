@@ -39,7 +39,7 @@ interface ProjectIconProps {
   project: Project;
   index: number;
   isExpanded: boolean;
-  onExpand: (index: number) => void;
+  onExpand: (index: number | null) => void;
   tiltX?: number;
   tiltY?: number;
 }
@@ -175,7 +175,8 @@ const ProjectIcon: React.FC<ProjectIconProps> = ({ project, index, isExpanded, o
       className={`relative cursor-pointer transition-all duration-300 ${
         isExpanded ? 'z-50' : 'z-10'
       }`}
-      onClick={() => onExpand(index)}
+      onMouseEnter={() => onExpand(index)}
+      onMouseLeave={() => onExpand(null)}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
@@ -282,7 +283,7 @@ export default function PortfolioSection() {
                 project={project}
                 index={index}
                 isExpanded={expandedIndex === index}
-                onExpand={(idx) => setExpandedIndex(expandedIndex === idx ? null : idx)}
+                onExpand={(idx) => setExpandedIndex(idx)}
                 tiltX={gyroTilt.x}
                 tiltY={gyroTilt.y}
               />
@@ -292,7 +293,7 @@ export default function PortfolioSection() {
 
         {/* Instructions */}
         <p className="text-[#E8E6F3]/80 text-sm mt-8 md:mt-12 text-center max-w-md">
-          Tap on any project icon to view details.
+          Hover over any project icon to view details.
         </p>
       </div>
 

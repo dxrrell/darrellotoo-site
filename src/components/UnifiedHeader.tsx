@@ -185,7 +185,7 @@ export default function UnifiedHeader() {
       {/* FAB for mobile only */}
       <div className="md:hidden">
         <motion.div
-          className="fixed bottom-6 right-6 z-[100]"
+          className="fixed bottom-9 right-9 z-[100] w-8 h-8 flex items-center justify-center"
           initial={false}
           animate={{
             scale: fabOpen ? 1.05 : 1,
@@ -193,14 +193,14 @@ export default function UnifiedHeader() {
               ? "0 8px 32px 0 rgba(123,74,227,0.25)"
               : "0 2px 8px 0 rgba(123,74,227,0.15)",
           }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          transition={{ type: "spring", stiffness: 200, damping: 25 }}
         >
           {/* FAB Button */}
           <button
             aria-label={fabOpen ? "Close menu" : "Open menu"}
-            className={`w-16 h-16 rounded-full bg-gradient-to-br from-[#E8E6F3] to-[#9B8ECF] flex items-center justify-center shadow-2xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#7B4AE3] ${fabOpen ? "rotate-45" : ""}`}
+            className={`w-16 h-16 rounded-full bg-gradient-to-br from-[#E8E6F3] to-[#9B8ECF] flex items-center justify-center shadow-2xl transition-all duration-500 ease-out focus:outline-none focus:ring-2 focus:ring-[#7B4AE3] ${fabOpen ? "rotate-45" : ""}`}
             onClick={() => setFabOpen((v) => !v)}
-            style={{ pointerEvents: "auto" }}
+            style={{ pointerEvents: "auto", position: "absolute", top: "-4px", left: "-4px" }}
           >
             <Image 
               src="/darrellLogoTransparent.png" 
@@ -223,15 +223,15 @@ export default function UnifiedHeader() {
                 initial={{ opacity: 0, y: 40, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 40, scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                transition={{ type: "spring", stiffness: 250, damping: 35 }}
                 className="absolute bottom-20 right-0 flex flex-col items-end gap-4"
                 style={{ pointerEvents: "auto" }}
               >
                 {[
-                  { id: "about", label: "About" },
-                  { id: "portfolio", label: "Portfolio" },
-                  { id: "services", label: "Services" },
                   { id: "contact", label: "Contact" },
+                  { id: "services", label: "Services" },
+                  { id: "portfolio", label: "Portfolio" },
+                  { id: "about", label: "About" },
                 ].map((item, idx) => (
                   // --- FAB MENU ITEM ANIMATION ---
                   <motion.button
@@ -241,7 +241,7 @@ export default function UnifiedHeader() {
                     initial={{ opacity: 0, scale: 0, y: 0 }}
                     animate={{ opacity: 1, scale: 1, y: -((idx + 1) * 60) }}
                     exit={{ opacity: 0, scale: 0, y: 0 }}
-                    transition={{ delay: 0.07 * idx, type: "spring", stiffness: 400, damping: 30 }}
+                    transition={{ delay: 0.05 * idx, type: "spring", stiffness: 300, damping: 35 }}
                     style={{ pointerEvents: "auto", position: 'absolute', right: 0 }}
                   >
                     {item.label}
