@@ -318,10 +318,23 @@ const faqs = [
 
 export default function ServicesSection() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
-  const [collapsedCategories, setCollapsedCategories] = useState<Set<number>>(new Set());
+  const [collapsedCategories, setCollapsedCategories] = useState<Set<number>>(new Set([0, 1, 2, 3])); // Start with all collapsed
+  const [hasTapped, setHasTapped] = useState(false);
+  const [showTapHint, setShowTapHint] = useState(true);
   const isMobile = useIsMobile();
 
+  // Hide tap hint after 10 seconds if user hasn't tapped yet
+  React.useEffect(() => {
+    if (hasTapped) return;
+    const timer = setTimeout(() => setShowTapHint(false), 10000);
+    return () => clearTimeout(timer);
+  }, [hasTapped]);
+
   const toggleCategory = (categoryIndex: number) => {
+    if (!hasTapped) {
+      setHasTapped(true);
+      setShowTapHint(false);
+    }
     setCollapsedCategories(prev => {
       const newSet = new Set(prev);
       if (newSet.has(categoryIndex)) {
@@ -354,6 +367,13 @@ export default function ServicesSection() {
 
         {/* Services Grid */}
         <div className="space-y-16">
+          {/* Mobile Tap Hint */}
+          {isMobile && showTapHint && (
+            <div className="flex flex-col items-center mb-4 animate-fade-in text-center">
+              <span className="text-xs text-[#7B4AE3] font-medium mb-1">Tap category to expand</span>
+              <span className="animate-pulse-arrow text-2xl text-[#7B4AE3]">▼</span>
+            </div>
+          )}
           {serviceCategories.map((category, categoryIndex) => (
             <motion.div
               key={category.title}

@@ -341,12 +341,15 @@ export default function AboutSection() {
                       </div>
 
                       <div>
-                        <div className="flex flex-wrap gap-1 mb-2">
+                        <div className="flex flex-wrap gap-1 mb-2 justify-center">
                           {aboutCards[activeCard].stats.map((stat, i) => (
                             <span
                               key={i}
-                              className="bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-[11px] font-medium border border-gray-200 flex-1 min-w-[45%] max-w-[48%] text-center"
-                              style={{ flexBasis: '48%' }}
+                              className="bg-gray-100 text-gray-800 px-2 py-1 rounded text-[11px] font-medium border border-gray-200 text-center"
+                              style={{ 
+                                flex: '0 0 auto',
+                                minWidth: 'fit-content'
+                              }}
                             >
                               {stat}
                             </span>
@@ -354,7 +357,7 @@ export default function AboutSection() {
                         </div>
                         {/* Single Highlight */}
                         <div className="flex items-center justify-center">
-                          <span className="bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-[11px] font-semibold border border-gray-200 flex-1 min-w-[45%] max-w-[48%] text-center" style={{ flexBasis: '48%' }}>
+                          <span className="bg-gray-100 text-gray-800 px-3 py-1 rounded text-[11px] font-semibold border border-gray-200 text-center">
                             {aboutCards[activeCard].highlight}
                           </span>
                         </div>

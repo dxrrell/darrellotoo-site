@@ -87,8 +87,8 @@ const projects = [
   },
   {
     title: "Custom FPV Drone Build",
-    description: "High-performance aerial photography platform with 4K transmission",
-    tech: ["FPV", "Drone", "4K Video", "Radio Transmission"],
+    description: "High-performance aerial photography platform with 1080p transmission",
+    tech: ["FPV", "Drone", "1080p Video", "Radio Transmission"],
     link: "#",
     icon: (
       <svg className="w-16 h-16 text-[#9B8ECF]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
