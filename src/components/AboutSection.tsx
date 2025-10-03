@@ -40,7 +40,7 @@ export default function AboutSection() {
         </svg>
       ),
       title: "Mechanical Engineering",
-      description: "Mechanical Engineer with hands-on experience across robotics, CAD, and hardware design. Delivered 15+ real-world projects spanning automation, prototyping, and space system integration—now building next-gen technologies at Northrop Grumman Tactical Space Systems.",
+      description: "• Hands-on experience across mechanical, electrical, and mission-assurance engineering in the aerospace & space systems industry\n• Delivered 15+ real-world projects in automation, robotics, prototyping, and space-system integration\n• Focus on quality, compliance, and reliability for high-stakes space missions\n• Skilled in CAD & modeling tools: SolidWorks, Fusion 360, MATLAB\n• Strong foundation in hardware design, testing, and system-level problem solving",
       highlight: "15+ Projects",
       stats: ["SolidWorks", "Fusion 360", "MATLAB"],
       image: "/images/about/mechanical-engineering.jpg",
@@ -53,7 +53,7 @@ export default function AboutSection() {
         </svg>
       ),
       title: "Innovation & Research",
-      description: "With a systems mindset and curiosity-driven approach, led technical research from academic labs to federal partnerships. Notably, a DOE project identified $785K in potential cost savings. Currently preparing research for publication and continuing to support R&D in the defense space.",
+      description: "• Approach challenges with a systems mindset and curiosity-driven research\n• Led technical research from academic labs to federal partnerships\n• DOE project identified $785K in cost savings for energy operations\n• Preparing research for publication while supporting R&D in the defense sector\n• 4+ years of experience bridging research with practical application",
       highlight: "$785K Savings",
       stats: ["4+ Years", "1 Publication", "U.S. Department of Energy Project"],
       image: "/images/about/innovation-research.JPG",
@@ -67,7 +67,7 @@ export default function AboutSection() {
         </svg>
       ),
       title: "Leadership & Mentorship",
-      description: "Over the past 3+ years, led and scaled impact in NSBE—serving as President, Alumni Advisor, and mentor to rising engineers. Leadership rooted in equity, visibility, and actionable support for the next generation of Black technologists.",
+      description: "• Over the past 3+ years, led and scaled impact in NSBE—serving as President, Alumni Advisor, and mentor to rising engineers\n• Leadership rooted in equity, visibility, and actionable support for the next generation of Black technologists\n• Mentored 50+ students in technical career development and professional growth\n• Featured speaker at VCU Commencement and industry forums\n• 6 awards recognizing leadership excellence and community impact",
       highlight: "50+ Mentees",
       stats: ["3+ Years", "6 Awards", "VCU Commencement Speaker"],
       image: "/images/about/leadership-mentorship.JPG",
@@ -80,7 +80,7 @@ export default function AboutSection() {
         </svg>
       ),
       title: "Public Speaking",
-      description: "Spoken to over 4,000 audience members across panels, conferences, and ceremonies. Talks explore the intersections of engineering, identity, innovation, and life design—always aiming to bring clarity, humility, and motivation.",
+      description: "• Delivered 15+ talks to 4,000+ audience members at panels, conferences, and ceremonies\n• Featured speaker at VCU Commencement and industry forums\n• Focus on topics at the intersection of engineering, identity, innovation, and life design\n• Known for a style that emphasizes clarity, humility, and motivation\n• Engaging presentations that bridge technical expertise with personal development",
       highlight: "4,000+ Audience",
       stats: ["15+ Talks", "VCU Commencement", "Conferences & Panels"],
       image: "/images/about/public-speaking.JPG",
@@ -94,7 +94,7 @@ export default function AboutSection() {
         </svg>
       ),
       title: "Machine Learning & AI",
-      description: "While early in the ML journey, applied tools like TensorFlow and scikit-learn to build models for image prediction and detection—including in capstone projects. Excited by the potential of AI in both engineering and wellness applications.",
+      description: "• Built 2 applied ML models for image prediction and detection (TensorFlow, scikit-learn, Python)\n• Achieved 90%+ accuracy in academic capstone projects\n• Passionate about applying AI to engineering challenges and wellness applications\n• Experienced in data preprocessing, model tuning, and evaluation\n• Excited by the potential of AI in both engineering and wellness applications",
       highlight: "90%+ Accuracy",
       stats: ["2 Models", "TensorFlow", "Python"],
       image: "/images/about/machine-learning.JPG",
@@ -204,9 +204,13 @@ export default function AboutSection() {
                           <h3 className="text-4xl font-bold text-black mb-6 group-hover:text-gray-800 transition-all">
                             {card.title}
                           </h3>
-                          <p className="text-gray-800 text-lg leading-relaxed mb-8">
-                            {card.description}
-                          </p>
+                          <div className="text-gray-800 text-lg leading-relaxed mb-8">
+                            {card.description.split('\n').map((line, index) => (
+                              <div key={index} className="mb-2">
+                                {line}
+                              </div>
+                            ))}
+                          </div>
                         </div>
 
                         <div>
@@ -335,9 +339,13 @@ export default function AboutSection() {
                         <h3 className="text-lg font-bold text-black mb-2 leading-tight">
                           {aboutCards[activeCard].title}
                         </h3>
-                        <p className="text-gray-800 text-xs leading-snug mb-2">
-                          {aboutCards[activeCard].description}
-                        </p>
+                        <div className="text-gray-800 text-xs leading-snug mb-2">
+                          {aboutCards[activeCard].description.split('\n').map((line, index) => (
+                            <div key={index} className="mb-1">
+                              {line}
+                            </div>
+                          ))}
+                        </div>
                       </div>
 
                       <div>

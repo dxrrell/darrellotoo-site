@@ -67,8 +67,8 @@ export default function AboutSectionDesktop() {
           <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
         </svg>
       ),
-      title: "Mechanical Engineering",
-      description: "Mechanical Engineer with hands-on experience across robotics, CAD, and hardware design. Delivered 15+ real-world projects spanning automation, prototyping, and space system integration—now building next-gen technologies at Northrop Grumman Tactical Space Systems.",
+      title: "Engineering",
+      description: "• Extensive hands-on experience across mechanical, electrical, and mission-assurance engineering in aerospace & space systems\n• Successfully delivered 15+ real-world projects spanning automation, robotics, prototyping, and space-system integration\n• Specialized focus on quality, compliance, and reliability for mission-critical space operations\n• Proficient in advanced CAD & modeling tools: SolidWorks, Fusion 360, MATLAB\n• Deep expertise in hardware design, comprehensive testing, and complex system-level problem solving",
       highlight: "15+ Projects",
       stats: ["SolidWorks", "Fusion 360", "MATLAB"],
       image: "/images/about/mechanical-engineering.jpg",
@@ -81,7 +81,7 @@ export default function AboutSectionDesktop() {
         </svg>
       ),
       title: "Innovation & Research",
-      description: "With a systems mindset and curiosity-driven approach, led technical research from academic labs to federal partnerships. Notably, a DOE project identified $785K in potential cost savings. Currently preparing research for publication and continuing to support R&D in the defense space.",
+      description: "• Strategic approach to challenges with systems thinking and curiosity-driven research methodology\n• Successfully led technical research initiatives from academic laboratories to federal partnerships\n• DOE project delivered $785K in verified cost savings for energy operations\n• Currently preparing research publications while advancing R&D initiatives in the defense sector\n• 4+ years of proven experience bridging cutting-edge research with real-world practical applications",
       highlight: "$785K Savings",
       stats: ["4+ Years", "1 Publication", "DOE Project"],
       image: "/images/about/innovation-research.JPG",
@@ -94,7 +94,7 @@ export default function AboutSectionDesktop() {
         </svg>
       ),
       title: "Leadership & Mentorship",
-      description: "Over the past 3+ years, led and scaled impact in NSBE—serving as President, Alumni Advisor, and mentor to rising engineers. Leadership rooted in equity, visibility, and actionable support for the next generation of Black technologists.",
+      description: "• 3+ years of transformative leadership in NSBE—serving as President, Alumni Advisor, and dedicated mentor to emerging engineers\n• Leadership philosophy grounded in equity, visibility, and actionable support for the next generation of Black technologists\n• Committed to creating meaningful pathways and opportunities for underrepresented groups in STEM\n• Personally mentored 50+ students and early-career professionals, fostering their professional growth\n• Honored with 6 prestigious leadership awards recognizing exceptional impact and service",
       highlight: "50+ Mentees",
       stats: ["3+ Years", "6 Awards", "VCU Speaker"],
       image: "/images/about/leadership-mentorship.JPG",
@@ -107,7 +107,7 @@ export default function AboutSectionDesktop() {
         </svg>
       ),
       title: "Public Speaking",
-      description: "Spoken to over 4,000 audience members across panels, conferences, and ceremonies. Talks explore the intersections of engineering, identity, innovation, and life design—always aiming to bring clarity, humility, and motivation.",
+      description: "• Delivered 15+ impactful presentations to 4,000+ audience members across panels, conferences, and ceremonies\n• Featured keynote speaker at VCU Commencement and prominent industry forums\n• Specialized focus on topics at the intersection of engineering, identity, innovation, and life design\n• Recognized speaking style emphasizing clarity, humility, and genuine motivation\n• Deeply passionate about inspiring and empowering the next generation of engineers and innovators",
       highlight: "4,000+ Audience",
       stats: ["15+ Talks", "VCU Commencement", "Industry Forums"],
       image: "/images/about/public-speaking.JPG",
@@ -120,7 +120,7 @@ export default function AboutSectionDesktop() {
         </svg>
       ),
       title: "Machine Learning & AI",
-      description: "While early in the ML journey, applied tools like TensorFlow and scikit-learn to build models for image prediction and detection—including in capstone projects. Excited by the potential of AI in both engineering and wellness applications.",
+      description: "• Developed 2 sophisticated ML models for image prediction and detection using TensorFlow, scikit-learn, and Python\n• Achieved exceptional 90%+ accuracy rates in academic capstone projects\n• Passionate about leveraging AI to solve complex engineering challenges and advance wellness applications\n• Skilled in comprehensive data preprocessing, advanced model tuning, and rigorous evaluation methodologies\n• Enthusiastic about the transformative potential of AI across engineering and wellness domains",
       highlight: "90%+ Accuracy",
       stats: ["2 Models", "TensorFlow", "Python"],
       image: "/images/about/machine-learning.JPG",
@@ -223,9 +223,11 @@ export default function AboutSectionDesktop() {
                           <h3 className="text-4xl font-bold text-black mb-6 group-hover:text-gray-800 transition-all">
                             {card.title}
                           </h3>
-                          <p className="text-gray-800 text-lg leading-relaxed mb-8">
-                            {card.description}
-                          </p>
+                          <div className="text-gray-800 text-lg leading-relaxed mb-8">
+                            {card.description.split('\n').map((line, index) => (
+                              <p key={index} className="mb-2">{line}</p>
+                            ))}
+                          </div>
                         </div>
 
                         <div>
@@ -332,9 +334,11 @@ export default function AboutSectionDesktop() {
                         <h3 className="text-2xl md:text-3xl font-bold text-black mb-4">
                           {card.title}
                         </h3>
-                        <p className="text-gray-800 text-base leading-relaxed mb-6">
-                          {card.description}
-                        </p>
+                        <div className="text-gray-800 text-base leading-relaxed mb-6">
+                          {card.description.split('\n').map((line, index) => (
+                            <p key={index} className="mb-2">{line}</p>
+                          ))}
+                        </div>
                       </div>
 
                       <div className="text-center">

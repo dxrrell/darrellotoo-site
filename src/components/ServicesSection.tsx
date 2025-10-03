@@ -265,7 +265,7 @@ const serviceCategories: ServiceCategory[] = [
     services: [
       {
         title: "Tutoring",
-        description: "One-on-one tutoring in technical subjects, programming, and engineering concepts.",
+        description: "One-on-one tutoring in STEM subjects including Math, Physics, Computer Science, Engineering, and Mechanical Engineering. Certified by Varsity Tutors in 21+ courses including AutoCAD, Microsoft Excel, and Public Speaking.",
         icon: "tutoring",
       },
       {
@@ -308,7 +308,7 @@ const faqs = [
   },
   {
     question: "What areas do you service?",
-    answer: "I primarily serve the local area for in-person services, but offer remote consulting and support globally.",
+    answer: "I primarily serve Northern Virginia for in-person services, but offer remote consulting and support globally.",
   },
   {
     question: "How long does a typical project take?",
@@ -321,6 +321,7 @@ export default function ServicesSection() {
   const [collapsedCategories, setCollapsedCategories] = useState<Set<number>>(new Set([0, 1, 2, 3])); // Start with all collapsed
   const [hasTapped, setHasTapped] = useState(false);
   const [showTapHint, setShowTapHint] = useState(true);
+  const [selectedService, setSelectedService] = useState<{categoryIndex: number, serviceIndex: number} | null>(null);
   const isMobile = useIsMobile();
 
   // Hide tap hint after 10 seconds if user hasn't tapped yet
@@ -401,45 +402,106 @@ export default function ServicesSection() {
                 <h3 className="text-3xl font-bold text-[#E8E6F3] mb-8">{category.title}</h3>
               )}
 
-              {/* Services Grid - Hidden on mobile when collapsed */}
-              <AnimatePresence>
-                {(!isMobile || !collapsedCategories.has(categoryIndex)) && (
-                  <motion.div
-                    initial={isMobile ? { height: 0, opacity: 0 } : undefined}
-                    animate={isMobile ? { height: "auto", opacity: 1 } : undefined}
-                    exit={isMobile ? { height: 0, opacity: 0 } : undefined}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="overflow-hidden"
-                  >
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                      {category.services.map((service, index) => (
-                        <motion.div
-                          key={service.title}
-                          initial={{ opacity: 0, y: 20 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.5, delay: index * 0.1 }}
-                          viewport={{ once: true }}
-                          className="bg-[#1A1443] rounded-2xl p-8 hover:bg-[#2D1B69] transition-colors duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7B4AE3] focus-visible:bg-[#2D1B69]"
-                          onMouseEnter={() => { }}
-                          onMouseLeave={() => { }}
-                          onKeyDown={(e) => {
-                            if (e.key === "Enter" || e.key === " ") {
-                              e.preventDefault();
-                              // Optional: Add any card interaction here
-                            }
+              {/* Desktop: Clean Dropdown Menus */}
+              {!isMobile ? (
+                <div className="space-y-4">
+                  {category.services.map((service, serviceIndex) => (
+                    <motion.div
+                      key={service.title}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5, delay: serviceIndex * 0.1 }}
+                      viewport={{ once: true }}
+                      className="bg-[#1A1443] rounded-xl border border-[#2D1B69] hover:border-[#7B4AE3]/50 transition-all duration-300"
+                    >
+                      <button
+                        onClick={() => setSelectedService(
+                          selectedService?.categoryIndex === categoryIndex && selectedService?.serviceIndex === serviceIndex 
+                            ? null 
+                            : { categoryIndex, serviceIndex }
+                        )}
+                        className="w-full px-6 py-4 text-left flex justify-between items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7B4AE3] focus-visible:bg-[#2D1B69] rounded-xl"
+                      >
+                        <div className="flex items-center gap-4">
+                          <Image
+                            src={`/icons/${service.icon}.png`}
+                            alt={service.title}
+                            width={32}
+                            height={32}
+                            className="w-8 h-8 object-contain"
+                          />
+                          <h4 className="text-xl font-semibold text-[#E8E6F3]">{service.title}</h4>
+                        </div>
+                        <motion.span
+                          animate={{ 
+                            rotate: selectedService?.categoryIndex === categoryIndex && selectedService?.serviceIndex === serviceIndex ? 180 : 0 
                           }}
-                          tabIndex={0}
-                          role="button"
-                          aria-label={`${service.title} - ${service.description}`}
+                          transition={{ duration: 0.3 }}
+                          className="text-[#7B4AE3] text-xl"
                         >
-                          {service.model && !isMobile ? (
-                            <ModelWithErrorHandling 
-                              model={service.model} 
-                              service={service.title} 
-                              icon={service.icon}
-                            />
-                          ) : (
-                            <div className="text-4xl mb-6">
+                          ▼
+                        </motion.span>
+                      </button>
+                      
+                      <AnimatePresence>
+                        {selectedService?.categoryIndex === categoryIndex && selectedService?.serviceIndex === serviceIndex && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                            className="overflow-hidden"
+                          >
+                            <div className="px-6 pb-6">
+                              <div className="border-t border-[#2D1B69] pt-4">
+                                <p className="text-[#9B8ECF] mb-6 leading-relaxed">{service.description}</p>
+                                <div className="flex gap-4">
+                                  <a
+                                    href="#contact"
+                                    className="inline-flex items-center px-6 py-3 bg-[#7B4AE3] text-white rounded-lg hover:bg-[#7B4AE3]/80 transition-colors duration-300 font-medium"
+                                  >
+                                    Contact to Discuss
+                                  </a>
+                                  {service.model && (
+                                    <div className="flex-1 max-w-xs">
+                                      <ModelWithErrorHandling 
+                                        model={service.model} 
+                                        service={service.title} 
+                                        icon={service.icon}
+                                      />
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </motion.div>
+                  ))}
+                </div>
+              ) : (
+                /* Mobile: Original Grid Layout */
+                <AnimatePresence>
+                  {!collapsedCategories.has(categoryIndex) && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      <div className="grid grid-cols-1 gap-6">
+                        {category.services.map((service, index) => (
+                          <motion.div
+                            key={service.title}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                            viewport={{ once: true }}
+                            className="bg-[#1A1443] rounded-2xl p-6 hover:bg-[#2D1B69] transition-colors duration-300 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#7B4AE3] focus-visible:bg-[#2D1B69]"
+                          >
+                            <div className="text-4xl mb-4">
                               <Image
                                 src={`/icons/${service.icon}.png`}
                                 alt={service.title}
@@ -448,21 +510,21 @@ export default function ServicesSection() {
                                 className="w-12 h-12 object-contain"
                               />
                             </div>
-                          )}
-                          <h4 className="text-2xl font-bold text-[#E8E6F3] mb-4">{service.title}</h4>
-                          <p className="text-[#9B8ECF] mb-6">{service.description}</p>
-                          <a
-                            href="#contact"
-                            className="inline-block px-6 py-3 bg-[#7B4AE3] text-white rounded-lg hover:bg-[#7B4AE3]/80 transition-colors duration-300"
-                          >
-                            Contact to Discuss
-                          </a>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                            <h4 className="text-xl font-bold text-[#E8E6F3] mb-3">{service.title}</h4>
+                            <p className="text-[#9B8ECF] mb-4 text-sm">{service.description}</p>
+                            <a
+                              href="#contact"
+                              className="inline-block px-4 py-2 bg-[#7B4AE3] text-white rounded-lg hover:bg-[#7B4AE3]/80 transition-colors duration-300 text-sm"
+                            >
+                              Contact to Discuss
+                            </a>
+                          </motion.div>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              )}
             </motion.div>
           ))}
         </div>

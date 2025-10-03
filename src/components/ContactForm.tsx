@@ -282,6 +282,7 @@ export default function ContactForm({ isOpen, onClose }: ContactFormProps) {
                       <option value="" className="bg-[#0F0A1F] text-[#9B8ECF]">Select a method</option>
                       <option value="Email" className="bg-[#0F0A1F] text-[#E8E6F3]">Email</option>
                       <option value="Phone" className="bg-[#0F0A1F] text-[#E8E6F3]">Phone</option>
+                      <option value="Text Message" className="bg-[#0F0A1F] text-[#E8E6F3]">Text Message</option>
                       <option value="Video Call" className="bg-[#0F0A1F] text-[#E8E6F3]">Video Call</option>
                     </select>
                     <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none">
