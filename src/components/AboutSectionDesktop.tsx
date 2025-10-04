@@ -68,7 +68,7 @@ export default function AboutSectionDesktop() {
         </svg>
       ),
       title: "Engineering",
-      description: "• Extensive hands-on experience across mechanical, electrical, and mission-assurance engineering in aerospace & space systems\n• Successfully delivered 15+ real-world projects spanning automation, robotics, prototyping, and space-system integration\n• Specialized focus on quality, compliance, and reliability for mission-critical space operations\n• Proficient in advanced CAD & modeling tools: SolidWorks, Fusion 360, MATLAB\n• Deep expertise in hardware design, comprehensive testing, and complex system-level problem solving",
+      description: "• Extensive hands-on experience across mechanical, electrical, and mission-assurance engineering in aerospace & space systems\n• Successfully delivered 15+ real-world projects spanning automation, robotics, prototyping, and space-system integration\n• Specialized focus on quality, compliance, and reliability for mission-critical space operations\n• Deep expertise in hardware design, comprehensive testing, and complex system-level problem solving",
       highlight: "15+ Projects",
       stats: ["SolidWorks", "Fusion 360", "MATLAB"],
       image: "/images/about/mechanical-engineering.jpg",
@@ -94,8 +94,8 @@ export default function AboutSectionDesktop() {
         </svg>
       ),
       title: "Leadership & Mentorship",
-      description: "• 3+ years of transformative leadership in NSBE—serving as President, Alumni Advisor, and dedicated mentor to emerging engineers\n• Leadership philosophy grounded in equity, visibility, and actionable support for the next generation of Black technologists\n• Committed to creating meaningful pathways and opportunities for underrepresented groups in STEM\n• Personally mentored 50+ students and early-career professionals, fostering their professional growth\n• Honored with 6 prestigious leadership awards recognizing exceptional impact and service",
-      highlight: "50+ Mentees",
+      description: "• 3+ years of transformative leadership in NSBE—serving as President, Alumni Advisor, and dedicated mentor to emerging engineers\n• Committed to creating meaningful pathways and opportunities for underrepresented groups in STEM\n• Personally mentored 60+ students and early-career professionals, fostering their professional growth\n• Honored with 6 prestigious leadership awards recognizing exceptional impact and service",
+      highlight: "60+ Mentees",
       stats: ["3+ Years", "6 Awards", "VCU Speaker"],
       image: "/images/about/leadership-mentorship.JPG",
       imageAlt: "Darrell speaking at leadership event"
